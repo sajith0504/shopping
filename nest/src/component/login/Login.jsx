@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import {Link} from "react-router-dom"
 
 const Login = () => {
+    
+    const [logindata,setLogindata]=useState({
+         phonenumber : '',
+        password:''
+    })
+
+
+    const Handlechange = (e) => {
+        const { name, value } = e.target;
+        
+        // Update the state for the corresponding input field
+        setLogindata({
+          ...logindata,
+          [name]: value,
+        });
+      };
   return (
     <div>
          {/* Loader Start */}
@@ -111,15 +127,32 @@ const Login = () => {
                             <form class="row g-4">
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating log-in-form">
-                                        <input type="email" class="form-control" id="email" placeholder="Email Address"/>
-                                        <label for="email">Email Address</label>
+                                        <input type="text" 
+                                        class="form-control" 
+                                        name="phonenumber" 
+                                        id="phonenumber"
+                                         value={logindata.phonenumber}
+                                          placeholder="Phone Number" 
+                                          inputMode='numeric' pattern='\d*' 
+                                          onInput={(e) => e.target.value = e.target.value.replace(/\D/g, '')}
+                                          onChange={Handlechange}
+
+                                        
+                                      
+                                        />
+                                        <label for="phonenumber">Phone Number</label>
                                     </div>
                                 </div>
 
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating log-in-form">
-                                        <input type="password" class="form-control" id="password"
-                                            placeholder="Password"/>
+                                        <input type="password"
+                                          class="form-control"
+                                          name="password"
+                                           id="password"
+                                          value={logindata.password}
+                                          placeholder="Password" 
+                                          onChange={Handlechange}/>
                                         <label for="password">Password</label>
                                     </div>
                                 </div>
