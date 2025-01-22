@@ -1,12 +1,118 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import axios from 'axios'
 
 const Signup = () => {
+  const [aadhaarNumber, setAadhaarNumber] = useState('');
+  const [otp, setOtp] = useState('');
+  const [requestId, setRequestId] = useState('');
+  const [orderId, setOrderId] = useState('');
+  const [message, setMessage] = useState('');
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
   const [formData, setFormData] = useState({
-    district: '',
-    taluka: '',
+      name: '',
+      pincode: '',
+      phone: '',
+      address: '',
+      district: '',
+      taluka: ''
+      
   });
+  
+
+  const generateOrderId = () => `ORDER_${new Date().getTime()}`;
+
+  const validateAadhaar = (number) => /^\d{12}$/.test(number);
+
+  const sendOtp = async (e) => {
+    e.preventDefault()
+      if (!validateAadhaar(aadhaarNumber)) {
+          setMessage('Invalid Aadhaar number. Please enter a 12-digit number.');
+          return;
+      }
+
+      const generatedOrderId = generateOrderId();
+      setOrderId(generatedOrderId);
+
+      try {
+          const response = await axios.post('http://localhost:3000/send-otp', {
+              aadhaarNumber,
+              orderid: generatedOrderId,
+          });
+          setRequestId(response.data.ref_id);
+          setMessage('OTP sent to your registered mobile number.');
+      } catch (error) {
+          setMessage(error.response?.data?.message || 'Failed to send OTP. Please try again.');
+      }
+  };
+
+  const verifyOtp = async (e) => {
+    e.preventDefault()
+      try {
+          const response = await axios.post('http://localhost:3000/verify-otp', {
+              otp,
+              ref_id: requestId,
+              orderid: orderId,
+              aadhaar_number: aadhaarNumber,
+          });
+
+          const userDetails = response.data.data || {};
+          setFormData({
+              name: userDetails.name || '',
+              pincode: userDetails.pincode || '',
+              phone: userDetails.phone || '',
+              address: userDetails.address || '',
+              dist: userDetails.district || '',
+             
+              
+          });
+
+          setMessage('Aadhaar verification successful!');
+          setIsOtpVerified(true); // OTP successfully verified
+
+      } catch (error) {
+          setMessage(error.response?.data?.message || 'Failed to verify OTP. Please try again.');
+      }
+  };
+
+  const handleChange = (e) => {
+    e.preventDefault()
+      const { name, value } = e.target;
+      setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const { name, pincode, phone, address, dob, district, taluka, password } = formData;
+
+    if (!name || !pincode || !phone || !address ||  !district || !taluka || !password) {
+        setMessage('Please fill all the fields.');
+        return;
+    }
+
+    try {
+        const response = await axios.post('http://localhost:3000/register', formData);
+        if (response.status === 200) {
+            setMessage('User registered successfully.');
+            setFormData({
+                name: '',
+                pincode: '',
+                phone: '',
+                address: '',
+                
+                district: '',
+                taluka: '',
+                password: '',
+            });
+         
+        }
+    } catch (error) {
+        setMessage(error.response?.data?.message || 'Error while registering user.');
+    }
+};
+
 
   const districtToTalukas = {
      chennai: ["Alandur", "Ambattur", "Aminjikarai", "Ayanavaram", "Egmore", "Guindy", "Madhavaram", "Madhuravoyal", "Mambalam", "Mylapore", "Perambur", "Purasavakkam", "Sholinganallur", "Thiruvottriyur", "Tondiarpet", "Velacherry"],
@@ -125,17 +231,37 @@ const Signup = () => {
                           style={{ width: '70%' }}
                           inputMode="numeric"
                           pattern="\d*"
-                          onInput={(e) => e.target.value = e.target.value.replace(/\D/g, '')}
+                          value={aadhaarNumber}
+                          onChange={(e) => setAadhaarNumber(e.target.value)}
                         />
-                        <button style={{ width: '30%' }}>Send OTP</button>
+                        <button style={{ width: '30%' }} onClick={sendOtp}>Send OTP</button>
                         <label htmlFor="aadhaar">Aadhaar Number</label>
                       </div>
                     </div>
+                    {requestId && !isOtpVerified && (
+                <div>
+                    <input
+                        type="text"
+                        placeholder="Enter OTP"
+                        value={otp}
+                        onChange={(e) => setOtp(e.target.value)}
+                    />
+                    <button onClick={verifyOtp}>Verify OTP</button>
+                </div>
+            )}
+            {message && <p>{message}</p>}
 
                     {/* Full Name Input */}
-                    <div className="col-12">
+                    {isOtpVerified && (      <div>       <div className="col-12">
                       <div className="form-floating theme-form-floating">
-                        <input type="text" className="form-control" id="fullname" placeholder="Full Name" />
+                        <input type="text" 
+                        className="form-control" 
+                        id="fullname" 
+                        placeholder="Full Name"
+                        value={formData.name}
+                        name="name"
+                        onChange={handleChange}
+                         />
                         <label htmlFor="fullname">Full Name</label>
                       </div>
                     </div>
@@ -143,23 +269,30 @@ const Signup = () => {
                     {/* Pincode Input */}
                     <div className="col-12">
                       <div className="form-floating theme-form-floating">
-                        <input type="text" className="form-control" id="pincode" placeholder="Pincode" />
+                        <input type="text" 
+                        className="form-control" 
+                        id="pincode" 
+                        placeholder="Pincode"
+                        value={formData.pincode}
+                        name="pincode"
+                        onChange={handleChange} 
+                        />
                         <label htmlFor="pincode">Pincode</label>
                       </div>
                     </div>
 
-                    {/* Date of Birth Input */}
-                    <div className="col-12">
-                      <div className="form-floating theme-form-floating">
-                        <input type="date" className="form-control" id="dob" placeholder="Date of Birth" />
-                        <label htmlFor="dob">Date of Birth</label>
-                      </div>
-                    </div>
+                    
 
                     {/* Address Input */}
                     <div className="col-12">
                       <div className="form-floating theme-form-floating">
-                        <input type="text" className="form-control" id="address" placeholder="Address" />
+                        <input type="text" 
+                        className="form-control"
+                         id="address" 
+                         placeholder="Address"
+                         value={formData.address}
+                         name="address"
+                         onChange={handleChange} />
                         <label htmlFor="address">Address</label>
                       </div>
                     </div>
@@ -168,9 +301,12 @@ const Signup = () => {
                     <div className="col-12">
                       <div className="form-floating theme-form-floating">
                         <select
+                        value={formData.district}
+                        name="district"
+                        
                           id="district"
                           className="form-control"
-                          value={formData.district}
+                          
                           onChange={handleDistrictChange}
                         //   style={{ padding: '8px', marginBottom: '10px', width: '50%' }}
                         >
@@ -216,6 +352,9 @@ const Signup = () => {
                           placeholder="Phone Number"
                           inputMode="numeric"
                           pattern="\d*"
+                          value={formData.phone}
+                          name="phone"
+                          onChange={handleChange}
                           onInput={(e) => e.target.value = e.target.value.replace(/\D/g, '')}
                         />
                         <label htmlFor="phonenumber">Phone Number</label>
@@ -225,7 +364,13 @@ const Signup = () => {
                     {/* Password Input */}
                     <div className="col-12">
                       <div className="form-floating theme-form-floating">
-                        <input type="password" className="form-control" id="password" placeholder="Password" />
+                        <input type="password"
+                         className="form-control"
+                          id="password"
+                           placeholder="Password"
+                           value={formData.password}
+                        name="password"
+                        onChange={handleChange} />
                         <label htmlFor="password">Password</label>
                       </div>
                     </div>
@@ -244,13 +389,18 @@ const Signup = () => {
 
                     {/* Sign Up Button */}
                     <div className="col-12">
-                      <button className="btn btn-animation w-100" type="submit">
+                      <button className="btn btn-animation w-100" type="submit"  onClick={handleSubmit}>
                         Sign Up
                       </button>
+                      </div>  
+                    
                     </div>
+                    )}
                   </form>
+                   
+                        
                 </div>
-
+                        
                 <div className="other-log-in">
                   <h6>or</h6>
                 </div>
@@ -272,7 +422,8 @@ const Signup = () => {
 
                 <div className="sign-up-box">
                   <h4>Already have an account?</h4>
-                  <a href="login.html">Log In</a>
+                  <Link to='/'>login</Link>
+                  
                 </div>
               </div>
             </div>
