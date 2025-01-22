@@ -234,7 +234,7 @@ const Signup = () => {
                           value={aadhaarNumber}
                           onChange={(e) => setAadhaarNumber(e.target.value)}
                         />
-                        <button style={{ width: '30%' }} onClick={sendOtp}>Send OTP</button>
+                        <button style={{ width: '30%',height:'50px',marginLeft:'5px' }} onClick={sendOtp}>Send OTP</button>
                         <label htmlFor="aadhaar">Aadhaar Number</label>
                       </div>
                     </div>
@@ -246,7 +246,7 @@ const Signup = () => {
                         value={otp}
                         onChange={(e) => setOtp(e.target.value)}
                     />
-                    <button onClick={verifyOtp}>Verify OTP</button>
+                    <button style={{marginTop:'7px'}} onClick={verifyOtp}>Verify OTP</button>
                 </div>
             )}
             {message && <p>{message}</p>}

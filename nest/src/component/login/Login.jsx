@@ -1,43 +1,46 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import axios from 'axios';
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import {Link} from "react-router-dom"
 
 const Login = () => {
-    
-    const [logindata,setLogindata]=useState({
-         phonenumber : '',
-        password:''
-    })
-
+    const [logindata, setLogindata] = useState({ phone: '', password: '' });
+    const [error, setError] = useState('');
 
     const Handlechange = (e) => {
         const { name, value } = e.target;
-        
-        // Update the state for the corresponding input field
-        setLogindata({
-          ...logindata,
-          [name]: value,
-        });
-      };
+        setLogindata({ ...logindata, [name]: value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!logindata.phone || !logindata.password) {
+            setError('Phone number and password are required');
+            return;
+        }
+
+        try {
+            const response = await axios.post('http://localhost:3000/auth/login', logindata);
+            console.log('Login Response:', response); // Log the full response
+
+            if (response.data.success) {
+                alert('Login successful!');
+                // Redirect or handle other login logic here
+            } else {
+                setError(response.data.message);
+            }
+        } catch (err) {
+            console.error('Login Error:', err);  // Log the error
+            setError(err.response?.data?.message || 'An error occurred. Please try again.');
+        }
+    };
+    
+
   return (
     <div>
-         {/* Loader Start */}
-    {/* <div class="fullpage-loader">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-    </div> */}
-    {/* Loader End */}
-
-    {/* Header Start */}
-   
-    {/* Header End */}
-
-    {/* mobile fix menu start */}
+        
 
      <Header/>
 
@@ -122,58 +125,68 @@ const Login = () => {
                             <h3>Welcome To Fastkart</h3>
                             <h4>Log In Your Account</h4>
                         </div>
+                        <div className="input-box">
+            <form className="row g-4" onSubmit={handleSubmit}>
+                <div className="col-12">
+                    <div className="form-floating theme-form-floating log-in-form">
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="phone"
+                            value={logindata.phone}
+                            placeholder="Phone Number"
+                            inputMode="numeric"
+                            pattern="\d*"
+                            onInput={(e) => e.target.value = e.target.value.replace(/\D/g, '')}
+                            onChange={Handlechange}
+                        />
+                        <label htmlFor="phone">Phone Number</label>
+                    </div>
+                </div>
 
-                        <div class="input-box">
-                            <form class="row g-4">
-                                <div class="col-12">
-                                    <div class="form-floating theme-form-floating log-in-form">
-                                        <input type="text" 
-                                        class="form-control" 
-                                        name="phonenumber" 
-                                        id="phonenumber"
-                                         value={logindata.phonenumber}
-                                          placeholder="Phone Number" 
-                                          inputMode='numeric' pattern='\d*' 
-                                          onInput={(e) => e.target.value = e.target.value.replace(/\D/g, '')}
-                                          onChange={Handlechange}
+                <div className="col-12">
+                    <div className="form-floating theme-form-floating log-in-form">
+                        <input
+                            type="password"
+                            className="form-control"
+                            name="password"
+                            value={logindata.password}
+                            placeholder="Password"
+                            onChange={Handlechange}
+                        />
+                        <label htmlFor="password">Password</label>
+                    </div>
+                </div>
 
-                                        
-                                      
-                                        />
-                                        <label for="phonenumber">Phone Number</label>
-                                    </div>
-                                </div>
-
-                                <div class="col-12">
-                                    <div class="form-floating theme-form-floating log-in-form">
-                                        <input type="password"
-                                          class="form-control"
-                                          name="password"
-                                           id="password"
-                                          value={logindata.password}
-                                          placeholder="Password" 
-                                          onChange={Handlechange}/>
-                                        <label for="password">Password</label>
-                                    </div>
-                                </div>
-
-                                <div class="col-12">
-                                    <div class="forgot-box">
-                                        <div class="form-check ps-0 m-0 remember-box">
-                                            <input class="checkbox_animated check-box" type="checkbox"
-                                                id="flexCheckDefault"/>
-                                            <label class="form-check-label" for="flexCheckDefault">Remember me</label>
-                                        </div>
-                                        <a href="forgot.html" class="forgot-password">Forgot Password?</a>
-                                    </div>
-                                </div>
-
-                                <div class="col-12">
-                                    <button class="btn btn-animation w-100 justify-content-center" type="submit">Log
-                                        In</button>
-                                </div>
-                            </form>
+                <div className="col-12">
+                    <div className="forgot-box">
+                        <div className="form-check ps-0 m-0 remember-box">
+                            <input
+                                className="checkbox_animated check-box"
+                                type="checkbox"
+                                id="flexCheckDefault"
+                            />
+                            <label className="form-check-label" htmlFor="flexCheckDefault">
+                                Remember me
+                            </label>
                         </div>
+                        <a href="forgot.html" className="forgot-password">Forgot Password?</a>
+                    </div>
+                </div>
+
+                {error && (
+                    <div className="col-12">
+                        <div className="alert alert-danger">{error}</div>
+                    </div>
+                )}
+
+                <div className="col-12">
+                    <button className="btn btn-animation w-100 justify-content-center" type="submit">
+                        Log In
+                    </button>
+                </div>
+            </form>
+        </div>
 
                         <div class="other-log-in">
                             <h6>or</h6>

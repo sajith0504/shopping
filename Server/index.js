@@ -3,6 +3,7 @@ import axios from 'axios';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import authRoutes from './routes/authRoutes.js'
 
 // Initialize dotenv for environment variables
 dotenv.config();
@@ -10,6 +11,7 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+app.use('/auth', authRoutes); 
 
 // Your EKYC Hub API credentials
 const EKYCHUB_USERNAME = process.env.EKYCHUB_USERNAME;
