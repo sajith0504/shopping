@@ -1,0 +1,67 @@
+.category-slider-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+  }
+  
+  .scroll-button {
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: #333;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 1;
+  }
+  
+  .left {
+    left: 10px;
+  }
+  
+  .right {
+    right: 10px;
+  }
+  
+  .category-slider {
+    width: 100%;
+    overflow: auto; /* Allow user scrolling */
+    position: relative;
+    scroll-behavior: smooth;
+  }
+  
+  .category-slider-content {
+    display: flex;
+    animation: scroll-loop 30s linear infinite;
+  }
+  
+  .dashboard-category {
+    flex-shrink: 0;
+    width: 200px; /* Adjust as necessary */
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .category-image img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .category-name h6 {
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  /* CSS Keyframe Animation for Infinite Looping */
+  /* @keyframes scroll-loop {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  } */
+  
