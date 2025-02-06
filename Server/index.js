@@ -24,9 +24,9 @@ app.use('/products', productRoutes); // For product-related routes
 app.use("/api", attributesRoutes);
 app.use("/retailers", retailerRoutes);
 
-app.use("/",(req,res=>{
-    res.send('server is running ')
-}))
+app.use((req, res) => {
+    res.status(404).send({ message: 'Server is  Running' });
+});
 
 
 
