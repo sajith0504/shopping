@@ -21,7 +21,7 @@ const Login = () => {
         }
 
         try {
-            const response = await axios.post('my-shopping-server.vercel.app', logindata);
+            const response = await axios.post('my-shopping-server.vercel.app/auth/login', logindata);
             console.log('Login Response:', response); // Log the full response
 
             if (response.data.success) {
