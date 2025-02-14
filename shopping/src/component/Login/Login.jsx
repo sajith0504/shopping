@@ -21,7 +21,7 @@ const Login = () => {
         }
 
         try {
-            const response = await axios.post('https://my-shopping-server.vercel.app/auth/login', logindata);
+            const response = await axios.post('http://localhost:3000/auth/login', logindata);
             console.log('Login Response:', response); // Log the full response
 
             if (response.data.success) {
@@ -47,11 +47,11 @@ const Login = () => {
 
   
 
-    
+   
   return (
     <div>
  <section className="log-in-section section-b-space">
-        <a href="" className="logo-login"><img src="assets/images/logo/1.png" className="img-fluid"/></a>
+        <a href="" className="logo-login"><img src={`${process.env.PUBLIC_URL}/assets/frontend/images/logo/1.png`} className="img-fluid"/></a>
         <div className="container w-100">
             <div className="row">
 

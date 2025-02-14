@@ -64,13 +64,16 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
       {/* page-wrapper Start */}
       <div className="page-wrapper compact-wrapper" id="pageWrapper">
         {/* Page Header Start */}
-        <div className="page-header">
+        <div className="page-header"  style={{ 
+  // paddingLeft: isSidebarOpen ? '74px' : '280px' ,
+  // width: `calc(100% - ${isSidebarOpen ? '74px' : '280px' })`
+}}>
           <div className="header-wrapper m-0">
             <div className="header-logo-wrapper p-0">
               <div className="logo-wrapper">
                 <Link to='/admin'>
-                  <img className="img-fluid main-logo" src="assets/images/logo/1.png" alt="logo" />
-                  <img className="img-fluid white-logo" src="assets/images/logo/1-white.png" alt="logo" />
+                  <img className="img-fluid main-logo" src="assets/backend/images/logo/1.png" alt="logo" />
+                  <img className="img-fluid white-logo" src="assets/backend/images/logo/1-white.png" alt="logo" />
                 </Link>
               </div>
               <div className="toggle-sidebar">
@@ -153,7 +156,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 </li>
                 <li className="profile-nav onhover-dropdown pe-0 me-0">
                   <div className="media profile-media">
-                    <img className="user-profile rounded-circle" src="assets/images/users/4.jpg" alt="user" />
+                    <img className="user-profile rounded-circle" src="assets/backend/images/users/4.jpg" alt="user" />
                     {user ? (
                 <div className="user-name-hide media-body">
                     <span>{user.name}</span> {/* Display user name */}
@@ -209,7 +212,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           <Link to='/admin' title="">
             <img
               className="img-fluid for-white"
-              src="assets/images/logo/full-white.png"
+              src="assets/backend/images/logo/full-white.png"
               alt="logo"
             />
           </Link>
@@ -227,12 +230,12 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
         <Link to='/admin' title="">
             <img
               className="img-fluid main-logo main-white"
-              src="assets/images/logo/logo.png"
+              src="assets/backend/images/logo/logo.png"
               alt="logo"
             />
             <img
               className="img-fluid main-logo main-dark"
-              src="assets/images/logo/logo-white.png"
+              src="assets/backend/images/logo/logo-white.png"
               alt="logo"
             />
             </Link>

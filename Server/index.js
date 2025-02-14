@@ -3,30 +3,37 @@ import axios from 'axios';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import authRoutes from './routes/authRoutes.js'
+import path from 'path';
+import { connectToDatabase } from './Library/db.js'; // Import MySQL connection
+
+// Import route files
+import authRoutes from './routes/authRoutes.js';
 import productRoutes from './routes/productRoutes.js';
-import attributesRoutes from './routes/attributesRoutes.js'
-import retailerRoutes from './routes/RetailerRoutes.js'; // Import retailer routes
-
-
-import path from 'path'; // Import the path module
+import attributesRoutes from './routes/attributesRoutes.js';
+import retailerRoutes from './routes/RetailerRoutes.js';
+import categoryRoutes from './routes/categoryRoutes.js'; // Import category routes
 
 // Initialize dotenv for environment variables
 dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); // Support URL-encoded bodies
+
+// Serve uploaded files statically
 app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
-app.use(bodyParser.json());
-app.use('/auth', authRoutes); 
-app.use('/products', productRoutes); // For product-related routes
-app.use("/api", attributesRoutes);
-app.use("/retailers", retailerRoutes);
+// Routes
+app.use('/auth', authRoutes);
+app.use('/products', productRoutes);
+app.use('/api', attributesRoutes);
+app.use('/retailers', retailerRoutes);
+app.use('/api', categoryRoutes); // Add category routes
 
-app.use((req, res) => {
-    res.status(404).send({ message: 'Server is  Running' });
-});
 
 
 
@@ -96,6 +103,6 @@ app.post('/verify-otp', async (req, res) => {
 
 
 // Start server
-app.listen(process.env.PORT || 3000, () => {
+app.listen(3000, () => {
     console.log('Server running on http://localhost:3000');
 });

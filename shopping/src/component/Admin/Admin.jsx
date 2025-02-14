@@ -17,7 +17,10 @@ const Admin = () => {
   return (
     <div>
         <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-         <div className="page-body" style={{paddingTop:'100px',paddingLeft:isSidebarOpen ? '74px':'280px'}}>
+         <div className="page-body"      style={{
+          paddingTop: "100px",
+          paddingLeft: isSidebarOpen ? "74px" : "280px",
+        }}>
                 <div className="container-fluid">
                     <div className="row">
                          {/* chart caard section start */}

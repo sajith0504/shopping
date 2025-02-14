@@ -73,7 +73,7 @@ const Scrool = () => {
                 {/* Category Items (Directly listed) */}
                 <div className="dashboard-category">
                   <a href="" className="category-image">
-                    <img src="assets/svg/vegetable.svg" className="img-fluid" alt="Vegetables & Fruit" />
+                    <img src="assets/backend/svg/vegetable.svg" className="img-fluid" alt="Vegetables & Fruit" />
                   </a>
                   <a href="" className="category-name">
                     <h6>Vegetables & Fruit</h6>
@@ -82,7 +82,7 @@ const Scrool = () => {
 
                 <div className="dashboard-category">
                   <a href="" className="category-image">
-                    <img src="assets/svg/cup.svg" className="img-fluid" alt="Beverages" />
+                    <img src="assets/backend/svg/cup.svg" className="img-fluid" alt="Beverages" />
                   </a>
                   <a href="" className="category-name">
                     <h6>Beverages</h6>
@@ -91,7 +91,7 @@ const Scrool = () => {
 
                 <div className="dashboard-category">
                   <a href="" className="category-image">
-                    <img src="assets/svg/meats.svg" className="img-fluid" alt="Meats & Seafood" />
+                    <img src="assets/backend/svg/meats.svg" className="img-fluid" alt="Meats & Seafood" />
                   </a>
                   <a href="" className="category-name">
                     <h6>Meats & Seafood</h6>
@@ -100,7 +100,7 @@ const Scrool = () => {
 
                 <div className="dashboard-category">
                   <a href="" className="category-image">
-                    <img src="assets/svg/breakfast.svg" className="img-fluid" alt="Breakfast" />
+                    <img src="assets/backend/svg/breakfast.svg" className="img-fluid" alt="Breakfast" />
                   </a>
                   <a href="" className="category-name">
                     <h6>Breakfast</h6>
@@ -109,7 +109,7 @@ const Scrool = () => {
 
                 <div className="dashboard-category">
                   <a href="" className="category-image">
-                    <img src="assets/svg/frozen.svg" className="img-fluid" alt="Frozen Foods" />
+                    <img src="assets/backend/svg/frozen.svg" className="img-fluid" alt="Frozen Foods" />
                   </a>
                   <a href="" className="category-name">
                     <h6>Frozen Foods</h6>
@@ -118,7 +118,7 @@ const Scrool = () => {
 
                 <div className="dashboard-category">
                   <a href="" className="category-image">
-                    <img src="assets/svg/milk.svg" className="img-fluid" alt="Milk & Dairies" />
+                    <img src="assets/backend/svg/milk.svg" className="img-fluid" alt="Milk & Dairies" />
                   </a>
                   <a href="" className="category-name">
                     <h6>Milk & Dairies</h6>
@@ -127,7 +127,7 @@ const Scrool = () => {
 
                 <div className="dashboard-category">
                   <a href="" className="category-image">
-                    <img src="assets/svg/pet.svg" className="img-fluid" alt="Pet Food" />
+                    <img src="assets/backend/svg/pet.svg" className="img-fluid" alt="Pet Food" />
                   </a>
                   <a href="" className="category-name">
                     <h6>Pet Food</h6>
@@ -137,7 +137,7 @@ const Scrool = () => {
                 {/* Repeat the same items to ensure a smooth loop */}
                 <div className="dashboard-category">
                   <a href="" className="category-image">
-                    <img src="assets/svg/vegetable.svg" className="img-fluid" alt="Vegetables & Fruit" />
+                    <img src="assets/backend/svg/vegetable.svg" className="img-fluid" alt="Vegetables & Fruit" />
                   </a>
                   <a href="" className="category-name">
                     <h6>Vegetables & Fruit</h6>
@@ -146,7 +146,7 @@ const Scrool = () => {
 
                 <div className="dashboard-category">
                   <a href="" className="category-image">
-                    <img src="assets/svg/cup.svg" className="img-fluid" alt="Beverages" />
+                    <img src="assets/backend/svg/cup.svg" className="img-fluid" alt="Beverages" />
                   </a>
                   <a href="" className="category-name">
                     <h6>Beverages</h6>
@@ -155,7 +155,7 @@ const Scrool = () => {
 
                 <div className="dashboard-category">
                   <a href="" className="category-image">
-                    <img src="assets/svg/meats.svg" className="img-fluid" alt="Meats & Seafood" />
+                    <img src="assets/backend/svg/meats.svg" className="img-fluid" alt="Meats & Seafood" />
                   </a>
                   <a href="" className="category-name">
                     <h6>Meats & Seafood</h6>
@@ -164,7 +164,7 @@ const Scrool = () => {
 
                 <div className="dashboard-category">
                   <a href="" className="category-image">
-                    <img src="assets/svg/breakfast.svg" className="img-fluid" alt="Breakfast" />
+                    <img src="assets/backend/svg/breakfast.svg" className="img-fluid" alt="Breakfast" />
                   </a>
                   <a href="" className="category-name">
                     <h6>Breakfast</h6>
@@ -173,7 +173,7 @@ const Scrool = () => {
 
                 <div className="dashboard-category">
                   <a href="" className="category-image">
-                    <img src="assets/svg/frozen.svg" className="img-fluid" alt="Frozen Foods" />
+                    <img src="assets/backend/svg/frozen.svg" className="img-fluid" alt="Frozen Foods" />
                   </a>
                   <a href="" className="category-name">
                     <h6>Frozen Foods</h6>
@@ -182,7 +182,7 @@ const Scrool = () => {
 
                 <div className="dashboard-category">
                   <a href="" className="category-image">
-                    <img src="assets/svg/milk.svg" className="img-fluid" alt="Milk & Dairies" />
+                    <img src="assets/backend/svg/milk.svg" className="img-fluid" alt="Milk & Dairies" />
                   </a>
                   <a href="" className="category-name">
                     <h6>Milk & Dairies</h6>
@@ -191,7 +191,7 @@ const Scrool = () => {
 
                 <div className="dashboard-category">
                   <a href="" className="category-image">
-                    <img src="assets/svg/pet.svg" className="img-fluid" alt="Pet Food" />
+                    <img src="assets/backend/svg/pet.svg" className="img-fluid" alt="Pet Food" />
                   </a>
                   <a href="" className="category-name">
                     <h6>Pet Food</h6>
